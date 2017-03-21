@@ -6,6 +6,5 @@ http://www.raywenderlich.com/32954/how-to-create-a-game-like-tiny-wings-with-coc
 
 Many thanks for it.
 
-Remark:
-Frame rate is too low to use 1:1, so it just gives an idea.
-I use in my project this code to dynamically create textures and use them.
+This version contains now Physics and textured hills.
+The frame rate is around 60FPS on a iPhone 6 and all parameters and changeable trough properties

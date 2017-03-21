@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DB4902DC1DBA071E00545288 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DB4902DB1DBA071E00545288 /* Default-568h@2x.png */; };
+		DB70C01C1E81384F00E0F1CC /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70C01B1E81384F00E0F1CC /* GameScene.swift */; };
+		DB70C01E1E8138C500E0F1CC /* terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = DB70C01D1E8138C500E0F1CC /* terrain.png */; };
+		DB70C0201E8138E500E0F1CC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = DB70C01F1E8138E500E0F1CC /* README.md */; };
 		DBD5DF021DB951CC008DBBD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5DF011DB951CC008DBBD5 /* AppDelegate.swift */; };
 		DBD5DF0A1DB951CC008DBBD5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5DF091DB951CC008DBBD5 /* GameViewController.swift */; };
 		DBD5DF1A1DB95312008DBBD5 /* HillNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD5DF191DB95312008DBBD5 /* HillNode.swift */; };
@@ -15,6 +18,9 @@
 
 /* Begin PBXFileReference section */
 		DB4902DB1DBA071E00545288 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "stickyhills/Default-568h@2x.png"; sourceTree = "<group>"; };
+		DB70C01B1E81384F00E0F1CC /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		DB70C01D1E8138C500E0F1CC /* terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terrain.png; path = stickyhills/terrain.png; sourceTree = "<group>"; };
+		DB70C01F1E8138E500E0F1CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DBD5DEFE1DB951CC008DBBD5 /* stickyhills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stickyhills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD5DF011DB951CC008DBBD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBD5DF091DB951CC008DBBD5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +42,7 @@
 		DB4902DA1DBA070E00545288 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				DB70C01D1E8138C500E0F1CC /* terrain.png */,
 				DB4902DB1DBA071E00545288 /* Default-568h@2x.png */,
 			);
 			name = Assets;
@@ -44,6 +51,7 @@
 		DBD5DEF51DB951CC008DBBD5 = {
 			isa = PBXGroup;
 			children = (
+				DB70C01F1E8138E500E0F1CC /* README.md */,
 				DB4902DA1DBA070E00545288 /* Assets */,
 				DBD5DF001DB951CC008DBBD5 /* stickyhills */,
 				DBD5DEFF1DB951CC008DBBD5 /* Products */,
@@ -65,6 +73,7 @@
 				DBD5DF091DB951CC008DBBD5 /* GameViewController.swift */,
 				DBD5DF011DB951CC008DBBD5 /* AppDelegate.swift */,
 				DBD5DF131DB951CC008DBBD5 /* Info.plist */,
+				DB70C01B1E81384F00E0F1CC /* GameScene.swift */,
 			);
 			path = stickyhills;
 			sourceTree = "<group>";
@@ -130,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB4902DC1DBA071E00545288 /* Default-568h@2x.png in Resources */,
+				DB70C01E1E8138C500E0F1CC /* terrain.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +152,8 @@
 			files = (
 				DBD5DF1A1DB95312008DBBD5 /* HillNode.swift in Sources */,
 				DBD5DF0A1DB951CC008DBBD5 /* GameViewController.swift in Sources */,
+				DB70C0201E8138E500E0F1CC /* README.md in Sources */,
+				DB70C01C1E81384F00E0F1CC /* GameScene.swift in Sources */,
 				DBD5DF021DB951CC008DBBD5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

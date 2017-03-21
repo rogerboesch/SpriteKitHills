@@ -13,19 +13,23 @@ func random(min: Int, max:Int) -> Int {
 }
 
 class HillNode {
-    private static let kMaxHillKeyPoints = 1000
-    private static let kPaddingTop: CGFloat = 20;
-    private static let kPaddingBottom: CGFloat = 20
-    private static let kMinDX: Int = 160
-    private static let kMinDY: Int = 60
-    private static let kRangeDX: Int = 80
-    private static let kRangeDY: Int = 40
     private static let kHillSegmentWidth: CGFloat = 10
+    
+    private var _minHillKeyPoints: Int = 100
+    
+    private var _paddingTop: CGFloat = 20
+    private var _paddingBottom: CGFloat = 20
+    private var _minDX: Int = 160
+    private var _minDY: Int = 60
+    private var _rangeDX: Int = 80
+    private var _rangeDY: Int = 40
     
     private var _points = Array<CGPoint>()
     private var _node: SKShapeNode?
-    private var _lineNode: SKShapeNode?
-
+    private var _image: UIImage?
+    private var _lineColor = UIColor.clear
+    private var _lineWidth: CGFloat = 1.0
+    
     // -------------------------------------------------------------------------
     // MARK: - Properties
     
@@ -38,88 +42,195 @@ class HillNode {
             return _node!
         }
     }
-
+    
     // -------------------------------------------------------------------------
-
-    var lineNode: SKShapeNode {
+    
+    var textureImage: UIImage? {
         get {
-            if _lineNode == nil {
-                generateLineNode()
-            }
+            return _image
+        }
+        set(value) {
+            _image = value
             
-            return _lineNode!
+            applyTexture()
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var minHillKeyPoints: Int {
+        get {
+            return _minHillKeyPoints
+        }
+        set(value) {
+            if value > 2 {
+                _points.removeAll()
+                _minHillKeyPoints = value
+            }
+            else {
+                // TDOO: Warning
+            }
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var paddingTop: CGFloat {
+        get {
+            return _paddingTop
+        }
+        set(value) {
+            _points.removeAll()
+            _paddingTop = value
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var paddingBottom: CGFloat {
+        get {
+            return _paddingBottom
+        }
+        set(value) {
+            _points.removeAll()
+            _paddingBottom = value
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var minDX: Int {
+        get {
+            return _minDX
+        }
+        set(value) {
+            _points.removeAll()
+            _minDX = value
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var minDY: Int {
+        get {
+            return _minDY
+        }
+        set(value) {
+            _points.removeAll()
+            _minDY = value
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var rangeDX: Int {
+        get {
+            return _rangeDX
+        }
+        set(value) {
+            _points.removeAll()
+            _rangeDX = value
+        }
+    }
+    
+    // -------------------------------------------------------------------------
+    
+    var rangeDY: Int {
+        get {
+            return _rangeDY
+        }
+        set(value) {
+            _points.removeAll()
+            _rangeDY = value
         }
     }
     
     // -------------------------------------------------------------------------
     // MARK: - Helper functions
-
+    
+    private func applyTexture() {
+        if _node == nil {
+            return
+        }
+        
+        if _image == nil {
+            _node?.fillTexture = nil
+            return
+        }
+        
+        // Just for demo purpose, make in real game more accurate
+        let targetSize = CGSize(width: 10, height: 200)
+        
+        UIGraphicsBeginImageContext(targetSize)
+        let context = UIGraphicsGetCurrentContext()
+        context?.draw(_image!.cgImage!, in: CGRect(x:0, y:0, width:targetSize.width, height:targetSize.height), byTiling: true)
+        let texture = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        _node!.fillTexture = SKTexture(image: texture!)
+    }
+    
+    // -------------------------------------------------------------------------
+    
     private func generatePoints() {
+        _points.removeAll()
+        
         let winSize: CGSize = UIScreen.main.bounds.size
         
-        var x: CGFloat = CGFloat(-HillNode.kMinDX)
+        var x: CGFloat = CGFloat(-_minDX)
         var y: CGFloat = winSize.height/2
-
         var dy: CGFloat = 0
         var ny: CGFloat = 0
-        var sign: CGFloat = 1; // +1 - going up, -1 - going  down
-
-        for i in 0...HillNode.kMaxHillKeyPoints-1 {
+        var sign: CGFloat = 1 // +1 - going up, -1 - going  down
+        
+        for i in 0..._minHillKeyPoints-1 {
             _points.append(CGPoint(x:x, y:y))
-
+            
             if i == 0 {
                 x = 0
                 y = winSize.height / 2
             }
             else {
-                x += CGFloat(random(min: 0, max: HillNode.kRangeDX) + HillNode.kMinDX)
+                x += CGFloat(random(min: 0, max: _rangeDX) + _minDX)
                 
                 while(true) {
-                    dy = CGFloat(random(min: 0, max: HillNode.kRangeDY) + HillNode.kMinDY)
+                    dy = CGFloat(random(min: 0, max: _rangeDY) + _minDY)
                     ny = y + dy * sign
                     
-                    if ny < winSize.height-HillNode.kPaddingTop && ny > HillNode.kPaddingBottom {
+                    if ny < winSize.height-_paddingTop && ny > _paddingBottom {
                         break
                     }
                 }
                 
                 y = ny
             }
-
+            
             sign *= -1
         }
-    }
-
-    // -------------------------------------------------------------------------
-
-    private func generateLineNode() {
-        let path = CGMutablePath()
-
-        path.move(to: CGPoint(x: _points[0].x, y: 80))
-
-        for i in 0...HillNode.kMaxHillKeyPoints-1 {
-            path.addLine(to: _points[i])
-        }
-        path.addLine(to: CGPoint(x: _points[HillNode.kMaxHillKeyPoints-1].x, y: 80))
         
-        _lineNode = SKShapeNode()
-        _lineNode!.path = path
-        _lineNode!.strokeColor = UIColor.red
-        _lineNode!.lineWidth = 1
+        // Last point
+        x += CGFloat(random(min: 0, max: _rangeDX) + _minDX)
+        _points.append(CGPoint(x:x, y:CGFloat(_minDY)+_paddingBottom))
     }
-
+    
     // -------------------------------------------------------------------------
-
+    
     private func generateCurvyNode() {
+        if _points.count == 0 {
+            generatePoints()
+        }
+        
         let path = CGMutablePath()
         
-        path.move(to: CGPoint(x: _points[0].x, y: 80))
-
-        for i in 1...HillNode.kMaxHillKeyPoints-1 {
+        path.move(to: CGPoint(x: _points[0].x, y: 0))
+        
+        var lastX: CGFloat = 0
+        
+        for i in 1..._points.count-1 {
             let p0 = _points[i-1]
             let p1 = _points[i]
             let hSegments = floorf(Float(p1.x-p0.x)/Float(HillNode.kHillSegmentWidth))
-
+            
             let dx = Float(p1.x - p0.x) / hSegments
             let da = Float(M_PI) / hSegments
             let ymid = (p0.y + p1.y) / 2
@@ -137,21 +248,30 @@ class HillNode {
                 path.addLine(to: pt1)
                 
                 pt0 = pt1
+                
+                lastX = pt1.x
             }
         }
         
+        path.addLine(to: CGPoint(x: lastX, y: 0))
+        
         _node = SKShapeNode()
         _node!.path = path
-        _node!.strokeColor = UIColor.white
-        _node!.lineWidth = 1
+        _node!.strokeColor = _lineColor
+        _node!.fillColor = UIColor.white
+        _node!.lineWidth = _lineWidth
+        
+        _node!.physicsBody = SKPhysicsBody(edgeChainFrom: path)
+        _node!.physicsBody?.isDynamic = false
+        
+        applyTexture()
     }
     
     // -------------------------------------------------------------------------
     // MARK: - Initialisation
-
+    
     init() {
-        generatePoints()
     }
-
+    
     // -------------------------------------------------------------------------
 }

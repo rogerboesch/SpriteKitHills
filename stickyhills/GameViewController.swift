@@ -12,11 +12,12 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = SKScene(size: self.view.bounds.size)
+        let scene = GameScene(size: self.view.bounds.size)
         scene.scaleMode = .resizeFill
         
         let hills = HillNode()
-        scene.addChild(hills.lineNode)
+        hills.minHillKeyPoints = 50
+        hills.textureImage = UIImage(named: "terrain.png")
         scene.addChild(hills.node)
 
         let text = SKLabelNode(text: "Hills Demo")
@@ -33,7 +34,6 @@ class GameViewController: UIViewController {
         
         let action = SKAction.moveBy(x: -100, y: 0, duration: 1.0)
         hills.node.run(SKAction.repeatForever(action))
-        hills.lineNode.run(SKAction.repeatForever(action))
     }
 
     override var shouldAutorotate: Bool {

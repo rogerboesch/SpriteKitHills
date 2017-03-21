@@ -8,3 +8,5 @@ Many thanks for it.
 
 This version contains now Physics and textured hills.
 The frame rate is around 60FPS on a iPhone 6 and all parameters and changeable trough properties
+
+![Example gif](/hills.gif)
